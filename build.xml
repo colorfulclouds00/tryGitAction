@@ -24,7 +24,7 @@
 
     <target name="build" depends="compile">
 
-        <jar jarfile="${try_jar}" basedir="${dest}" includes="input.txt"/>
+        <jar jarfile="${try_jar}" basedir="${dest}"/>
 
     </target>
 
@@ -32,7 +32,7 @@
 
     <target name="run" depends="build">
 
-        <java classname="Compiler" classpath="${try_jar}" output="output.txt" />
+        <java classname="Compiler" classpath="${try_jar}"/>
         <echo message="success"/>
 
     </target>

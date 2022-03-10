@@ -6,14 +6,13 @@ import java.io.*;
 public class Compiler {
     public static File file = new File("testfile.txt");
     public static InputStream in = null;
-    public static BufferedWriter out = null;
+    public static String m = "const int MOD = (4259+235*243/3+3*4*4*3*6*5/3*9293+385*4346+23643*139+1926+817+1952+1026+2869);";
     private static int temp,ntemp=' ';
     private static String token;
 
     public static void main(String[] args) {
         try {
             in=new FileInputStream(file);
-            out = new BufferedWriter(new FileWriter("output.txt"));
             while(true) {
                 getSym();
                 if(temp == -1){
@@ -21,7 +20,6 @@ public class Compiler {
                 }
             }
             in.close();
-            out.close();
             System.out.println("finish");
         }catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +53,7 @@ public class Compiler {
             }
             temp = ntemp;
             int num = Integer.parseInt(token);
-            out.write("INTCON "+num+"\n");
+           System.out.println("INTCON "+num+"\n");
         }
         else if(temp == '"'){
             do {
@@ -63,49 +61,49 @@ public class Compiler {
                 temp=in.read();
             } while(temp != '"');
             catToken();
-            out.write("STRCON "+token+"\n");
+           System.out.println("STRCON "+token+"\n");
         }
         else if(temp=='='){
             ntemp=in.read();
             if(ntemp=='='){
-                out.write("EQL ==\n");
+               System.out.println("EQL ==\n");
                 temp = ntemp;
                 ntemp = ' ';
             }else{
-                out.write("ASSIGN =\n");
+               System.out.println("ASSIGN =\n");
             }
         }
         else if(temp == '<'){
             ntemp=in.read();
             if(ntemp=='='){
-                out.write("LEQ <=\n");
+               System.out.println("LEQ <=\n");
                 getChar();
             }else{
-                out.write("LSS <\n");
+               System.out.println("LSS <\n");
             }
         }
         else if(temp == '>'){
             ntemp=in.read();
             if(ntemp=='='){
-                out.write("GEQ >=\n");
+               System.out.println("GEQ >=\n");
                 getChar();
             }else{
-                out.write("GRE >\n");
+               System.out.println("GRE >\n");
             }
         }
         else if(temp == '!'){
             ntemp=in.read();
             if(ntemp=='='){
-                out.write("NEQ !=\n");
+               System.out.println("NEQ !=\n");
                 getChar();
             }else{
-                out.write("NOT !\n");
+               System.out.println("NOT !\n");
             }
         }
         else if(temp =='&'){
             ntemp=in.read();
             if(ntemp=='&'){
-                out.write("AND &&\n");
+               System.out.println("AND &&\n");
                 getChar();
             }else{
                 //TODO error
@@ -114,20 +112,20 @@ public class Compiler {
         else if(temp =='|'){
             ntemp=in.read();
             if(ntemp=='|'){
-                out.write("OR ||\n");
+               System.out.println("OR ||\n");
                 getChar();
             }else{
                 //TODO error
             }
         }
         else if(temp == '+'){
-            out.write("PLUS +\n");
+           System.out.println("PLUS +\n");
         }
         else if(temp == '-'){
-            out.write("MINU -\n");
+           System.out.println("MINU -\n");
         }
         else if(temp == '*'){
-            out.write("MULT *\n");
+           System.out.println("MULT *\n");
         }
         else if(temp == '/'){
             ntemp=in.read();
@@ -145,35 +143,35 @@ public class Compiler {
                 ntemp = ' ';
             }
             else{
-                out.write("DIV /\n");
+               System.out.println("DIV /\n");
             }
         }
         else if(temp == '%'){
-            out.write("MOD %\n");
+           System.out.println("MOD %\n");
         }
         else if(temp == ';'){
-            out.write("SEMICN ;\n");
+           System.out.println("SEMICN ;\n");
         }
         else if(temp == ','){
-            out.write("COMMA ,\n");
+           System.out.println("COMMA ,\n");
         }
         else if(temp=='('){
-            out.write("LPARENT (\n");
+           System.out.println("LPARENT (\n");
         }
         else if(temp==')'){
-            out.write("RPARENT )\n");
+           System.out.println("RPARENT )\n");
         }
         else if(temp=='['){
-            out.write("LBRACK [\n");
+           System.out.println("LBRACK [\n");
         }
         else if(temp==']'){
-            out.write("RBRACK ]\n");
+           System.out.println("RBRACK ]\n");
         }
         else if(temp=='{'){
-            out.write("LBRACE {\n");
+           System.out.println("LBRACE {\n");
         }
         else if(temp=='}'){
-            out.write("RBRACE }\n");
+           System.out.println("RBRACE }\n");
         }
     }
     public static boolean isSpace(){
@@ -212,43 +210,43 @@ public class Compiler {
     public static void reserve() throws IOException {
         switch (token){
             case "int":
-                out.write("INTTK "+token+"\n");
+               System.out.println("INTTK "+token+"\n");
                 break;
             case "main":
-                out.write("MAINTK "+token+"\n");
+               System.out.println("MAINTK "+token+"\n");
                 break;
             case "const":
-                out.write("CONSTTK "+token+"\n");
+               System.out.println("CONSTTK "+token+"\n");
                 break;
             case "break":
-                out.write("BREAKTK "+token+"\n");
+               System.out.println("BREAKTK "+token+"\n");
                 break;
             case "continue":
-                out.write("CONTINUETK "+token+"\n");
+               System.out.println("CONTINUETK "+token+"\n");
                 break;
             case "if":
-                out.write("IFTK "+token+"\n");
+               System.out.println("IFTK "+token+"\n");
                 break;
             case "else":
-                out.write("ELSETK "+token+"\n");
+               System.out.println("ELSETK "+token+"\n");
                 break;
             case "while":
-                out.write("WHILETK "+token+"\n");
+               System.out.println("WHILETK "+token+"\n");
                 break;
             case "getint":
-                out.write("GETINTTK "+token+"\n");
+               System.out.println("GETINTTK "+token+"\n");
                 break;
             case "printf":
-                out.write("PRINTFTK "+token+"\n");
+               System.out.println("PRINTFTK "+token+"\n");
                 break;
             case "return":
-                out.write("RETURNTK "+token+"\n");
+               System.out.println("RETURNTK "+token+"\n");
                 break;
             case "void":
-                out.write("VOIDTK "+token+"\n");
+               System.out.println("VOIDTK "+token+"\n");
                 break;
             default:
-                out.write("IDENFR "+token+"\n");
+               System.out.println("IDENFR "+token+"\n");
                 break;
         }
 
