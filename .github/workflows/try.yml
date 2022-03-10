@@ -32,13 +32,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-
-      - shell: bash
-        run: |
-          echo "Build Project"
-          mvn compile
-          echo "Run Junit"          
-          mvn test
-
-          mvn cobertura:cobertura
-          mvn cobertura:dump-datafile
+          distribution: 'temurin'
+      - name: Build with Ant
+        run: ant -noinput -buildfile build.xml
