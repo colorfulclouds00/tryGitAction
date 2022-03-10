@@ -22,6 +22,7 @@ public class Compiler {
             }
             in.close();
             out.close();
+            System.out.println("finish");
         }catch (IOException e) {
             e.printStackTrace();
         }

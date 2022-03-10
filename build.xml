@@ -8,6 +8,8 @@
 
     <property name="try_jar" value="try.jar"/>
 
+    <property name="javadoc.package" value="com.*"/>
+
     <target name="init">
 
         <mkdir dir="${dest}"/>
@@ -26,9 +28,12 @@
 
     </target>
 
+
+
     <target name="run" depends="build">
 
         <java classname="Compiler" classpath="${try_jar}"/>
+        <echo message="success"/>
 
     </target>
 
@@ -40,12 +45,6 @@
 
     </target>
 
-    <target name="rerun" depends="clean,run">
 
-        <ant target="clean" />
-
-        <ant target="run" />
-
-    </target>
 
 </project>
